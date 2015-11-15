@@ -13,6 +13,7 @@ import java.util.Date;
  */
 public class inode {
     
+    
     private String[] i_mode;
     //space 0 for type, 0 for permisions 742 format permission.
     
