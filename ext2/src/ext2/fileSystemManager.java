@@ -18,8 +18,14 @@ import java.util.logging.Logger;
  */
 public class fileSystemManager {
     RandomAccessFile file;
-    //Total number of clusters = 65,536
-    //Total number of blocks = 262,144
+
+    //Config
+    static String FILE_NAME = "fs.dat";
+    static int FILE_SYSTEM_LENGTH = 10240;
+    static int NUMBER_OF_CLUSTERS = 65536;
+    static int NUMBER_OF_BLOCKS = 262144;
+    static int BYTES_PER_CLUSTER = 4096;
+    static int BYTES_PER_BLOCK = 1024;
     static int SUPER_BLOCK_CLUSTER = 0;
     static int DATA_BLOCK_BITMAP_CLUSTER = 1;
     static int INODE_BITMAP_CLUSTER = 2;
@@ -28,13 +34,13 @@ public class fileSystemManager {
     
     public fileSystemManager() {
         try {
-            File f = new File("fs.dat");
+            File f = new File(FILE_NAME);
             if(f.exists() && !f.isDirectory()) { 
-                this.file = new RandomAccessFile("fs.dat","rw");
+                this.file = new RandomAccessFile(FILE_NAME,"rw");
                 System.out.println("La estructura existe, cargando.");
             } else {
-                this.file = new RandomAccessFile("fs.dat","rw");
-                this.file.setLength(10240);
+                this.file = new RandomAccessFile(FILE_NAME,"rw");
+                this.file.setLength(FILE_SYSTEM_LENGTH);
                 System.out.println("La estructura no existia, creando y cargando.");
             }
         } catch (FileNotFoundException ex) {
@@ -48,7 +54,6 @@ public class fileSystemManager {
         String retval = "";
         try {
             file.seek(dirStart*2);
-            //file.readUTF();
             for (int i = 0; i < size; i++) {
                 retval += file.readChar();
             }
@@ -70,20 +75,93 @@ public class fileSystemManager {
     }
     
     public String getBlock(int block){
+        String retval = "";
+        int dirStart = BYTES_PER_BLOCK * block;
+        try {
+            file.seek(dirStart*2);
+            for (int i = 0; i < BYTES_PER_BLOCK; i++) {
+                retval += file.readChar();
+            }
+            
+        } catch (IOException ex) {
+            Logger.getLogger(fileSystemManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
-        return "ja";
+        return retval;
     }
     
-    public void writeBlock(String block){
+    public void writeBlock(String data, int block){
+        if (data.length() > BYTES_PER_BLOCK) {
+            System.out.println("Error: La data excede el tamaño del bloque.");
+        } else {
+            int dirStart = BYTES_PER_BLOCK * block;
+            try {
+                file.seek(dirStart*2);
+                file.writeChars(data);
+            } catch (IOException ex) {
+                Logger.getLogger(fileSystemManager.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
         
     }
     
     public String getCluster(int cluster){
+        String retval = "";
+        int dirStart = BYTES_PER_CLUSTER*cluster;
+        try {
+            file.seek(dirStart*2);
+            for (int i = 0; i < BYTES_PER_CLUSTER; i++) {
+                retval += file.readChar();
+            }
+            
+        } catch (IOException ex) {
+            Logger.getLogger(fileSystemManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
-        return "ja";
+        return retval;
     }
     
-    public void writeCluster(String cluster){
+    public void writeCluster(String data, int cluster){
+        if (data.length() > BYTES_PER_CLUSTER) {
+            System.out.println("Error: La data excede el tamaño del cluster.");
+        } else {
+            int dirStart = BYTES_PER_BLOCK * cluster;
+            try {
+                file.seek(dirStart*2);
+                file.writeChars(data);
+            } catch (IOException ex) {
+                Logger.getLogger(fileSystemManager.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+    
+    public String getSuperBlock(){
+        String retval = "";
+        
+        return retval;
+    }
+    
+    public void setSuperBlock(String data){
+        
+    }
+    
+    public String getDataBlockBitmap(){
+        String retval = "";
+        
+        return retval;
+    }
+    
+    public void setDataBlockBitmap(String data){
+        
+    }
+    
+    public String getInodeBitmap(){
+        String retval = "";
+        
+        return retval;
+    }
+    
+    public void setInodeBitmap(String data){
         
     }
     
