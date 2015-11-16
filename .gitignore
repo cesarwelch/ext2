@@ -1,2 +1,5 @@
 .DS_Store
 /ext2/dist/
+ext2/fs.dat
+ext2/build/classes/.netbeans_automatic_build
+ext2/build/classes/.netbeans_update_resources
