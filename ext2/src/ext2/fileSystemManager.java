@@ -137,32 +137,114 @@ public class fileSystemManager {
     
     public String getSuperBlock(){
         String retval = "";
+        try {
+            file.seek(SUPER_BLOCK_CLUSTER*2);
+            for (int i = 0; i < BYTES_PER_CLUSTER; i++) {
+                retval += file.readChar();
+            }
+            
+        } catch (IOException ex) {
+            Logger.getLogger(fileSystemManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
         return retval;
     }
     
     public void setSuperBlock(String data){
-        
+        if (data.length() > BYTES_PER_CLUSTER) {
+            System.out.println("Error: La data excede el tamaño del cluster.");
+        } else {
+            try {
+                file.seek(SUPER_BLOCK_CLUSTER*2);
+                file.writeChars(data);
+            } catch (IOException ex) {
+                Logger.getLogger(fileSystemManager.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
     
     public String getDataBlockBitmap(){
         String retval = "";
+        try {
+            file.seek(DATA_BLOCK_BITMAP_CLUSTER*2);
+            for (int i = 0; i < BYTES_PER_CLUSTER; i++) {
+                retval += file.readChar();
+            }
+            
+        } catch (IOException ex) {
+            Logger.getLogger(fileSystemManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
         return retval;
     }
     
     public void setDataBlockBitmap(String data){
-        
+        if (data.length() > BYTES_PER_CLUSTER) {
+            System.out.println("Error: La data excede el tamaño del cluster.");
+        } else {
+            try {
+                file.seek(DATA_BLOCK_BITMAP_CLUSTER*2);
+                file.writeChars(data);
+            } catch (IOException ex) {
+                Logger.getLogger(fileSystemManager.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
     
     public String getInodeBitmap(){
         String retval = "";
+        try {
+            file.seek(INODE_BITMAP_CLUSTER*2);
+            for (int i = 0; i < BYTES_PER_CLUSTER; i++) {
+                retval += file.readChar();
+            }
+            
+        } catch (IOException ex) {
+            Logger.getLogger(fileSystemManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
         return retval;
     }
     
     public void setInodeBitmap(String data){
+        if (data.length() > BYTES_PER_CLUSTER) {
+            System.out.println("Error: La data excede el tamaño del cluster.");
+        } else {
+            try {
+                file.seek(INODE_BITMAP_CLUSTER*2);
+                file.writeChars(data);
+            } catch (IOException ex) {
+                Logger.getLogger(fileSystemManager.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+    
+    public String getInodeTable(){
+        String retval = "";
+        try {
+            file.seek(INODE_TABLE_CLUSTER*2);
+            for (int i = 0; i < BYTES_PER_CLUSTER; i++) {
+                retval += file.readChar();
+            }
+            
+        } catch (IOException ex) {
+            Logger.getLogger(fileSystemManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
+        return retval;
+    }
+    
+    public void setInodeTable(String data){
+        if (data.length() > BYTES_PER_CLUSTER) {
+            System.out.println("Error: La data excede el tamaño del cluster.");
+        } else {
+            try {
+                file.seek(INODE_TABLE_CLUSTER*2);
+                file.writeChars(data);
+            } catch (IOException ex) {
+                Logger.getLogger(fileSystemManager.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
     
     
