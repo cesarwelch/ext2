@@ -21,14 +21,6 @@ public class Ext2 {
         man.write("¿Hola que tal como vamos?", 0);
         man.write("94546649",25);
         man.write("99900000", 33);
-        String bmp = "";
-        Random randomGenerator = new Random();
-        for (int idx = 1; idx <= 9216; ++idx){
-          int randomInt = randomGenerator.nextInt(2);
-          bmp += randomInt;
-        }
-        System.out.println(bmp.length());
-        man.setDataBlockBitmap(bmp);
         System.out.println(man.getDataBlockBitmap());
         System.out.println(man.getDataBlockBitmap().length());
         System.out.println(man.read(0, 24));
