@@ -12,9 +12,11 @@ import java.util.BitSet;
  */
 public class DataBlockBitmapControl {
     
-    int bitSize = 10;
+    fileSystemManager fsm = new fileSystemManager();
+    String info = fsm.getDataBlockBitmap();
+    int bitSize = info.length();
     BitSet dbbc = new BitSet(bitSize);
-    String info = "";
+    
     
     public void fillBitSet(){
         for (int i = 0; i < info.length(); i++) {
