@@ -18,7 +18,14 @@ import java.util.logging.Logger;
  */
 public class fileSystemManager {
     RandomAccessFile file;
-
+    //Total number of clusters = 65,536
+    //Total number of blocks = 262,144
+    static int SUPER_BLOCK_CLUSTER = 0;
+    static int DATA_BLOCK_BITMAP_CLUSTER = 1;
+    static int INODE_BITMAP_CLUSTER = 2;
+    static int INODE_TABLE_CLUSTER = 0;
+    static int DATA_BLOCKS_CLUSTER = 0;
+    
     public fileSystemManager() {
         try {
             File f = new File("fs.dat");
@@ -27,7 +34,7 @@ public class fileSystemManager {
                 System.out.println("La estructura existe, cargando.");
             } else {
                 this.file = new RandomAccessFile("fs.dat","rw");
-                this.file.setLength(256000000);
+                this.file.setLength(10240);
                 System.out.println("La estructura no existia, creando y cargando.");
             }
         } catch (FileNotFoundException ex) {
@@ -37,6 +44,48 @@ public class fileSystemManager {
         }
     }
     
+    public String read(int dirStart, int size){
+        String retval = "";
+        try {
+            file.seek(dirStart*2);
+            //file.readUTF();
+            for (int i = 0; i < size; i++) {
+                retval += file.readChar();
+            }
+            
+        } catch (IOException ex) {
+            Logger.getLogger(fileSystemManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return retval;
+    }
+    
+    public void write(String data, int dirStart){
+        try {
+            file.seek(dirStart*2);
+            file.writeChars(data);
+        } catch (IOException ex) {
+            Logger.getLogger(fileSystemManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public String getBlock(int block){
+        
+        return "ja";
+    }
+    
+    public void writeBlock(String block){
+        
+    }
+    
+    public String getCluster(int cluster){
+        
+        return "ja";
+    }
+    
+    public void writeCluster(String cluster){
+        
+    }
     
     
 }

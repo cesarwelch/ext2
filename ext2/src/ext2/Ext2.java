@@ -16,6 +16,13 @@ public class Ext2 {
      */
     public static void main(String[] args) {
         fileSystemManager man = new fileSystemManager();
+        man.write("Hola que tal como vamos?", 0);
+        man.write("94546649",25);
+        man.write("99900000", 33);
+        System.out.println(man.read(0, 24));
+        System.out.println(man.read(25, 8));
+        System.out.println(man.read(33, 8));
+        System.out.println(man.read(0, 41));
     }
     
 }
