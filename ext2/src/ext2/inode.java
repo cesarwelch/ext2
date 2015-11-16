@@ -66,6 +66,12 @@ public class inode {
     private int[] direct_block_pointers  = new int[12];
      
     private int indirect_block_pointer;
+
+    
+    //constructor vacio para uso en inodeTableControl
+    inode() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
     
     /**
