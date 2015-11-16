@@ -5,6 +5,8 @@
  */
 package ext2;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -12,6 +14,23 @@ import java.util.Date;
  * @author Cesar
  */
 public class inode {
+
+    public inode(String[] i_mode, String i_uid, int i_size, Date i_atime, Date i_mtime, String i_gid, int i_links_count, int i_blocks, int[] i_block, int indirect_block_pointer) {
+        this.i_mode = i_mode;
+        this.i_uid = i_uid;
+        this.i_size = i_size;
+        this.i_atime = i_atime;
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+	Date date = new Date();
+	this.i_ctime = date;
+        this.i_mtime = i_mtime;
+        this.i_dtime = null;
+        this.i_gid = i_gid;
+        this.i_links_count = i_links_count;
+        this.i_blocks = i_blocks;
+        this.i_block = i_block;
+        this.indirect_block_pointer = indirect_block_pointer;
+    }
 
   
     
@@ -43,7 +62,8 @@ public class inode {
     private int i_blocks;
     
     private int[] i_block;
-     private int[] direct_block_pointers  = new int[12];
+    
+    private int[] direct_block_pointers  = new int[12];
      
     private int indirect_block_pointer;
     
